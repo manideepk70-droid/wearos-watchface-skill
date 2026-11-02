@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Watch Face Format package: no code, the watch's own renderer draws res/raw/watchface.xml. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="@@PACKAGE@@">
+
+  <uses-feature android:name="android.hardware.type.watch"/>
+
+  <application
+      android:label="@string/app_name"
+      android:icon="@drawable/preview"
+      android:hasCode="false">
+    <meta-data android:name="com.google.android.wearable.standalone" android:value="true"/>
+    <property android:name="com.google.wear.watchface.format.version" android:value="1"/>
+    <property android:name="com.google.wear.watchface.format.publisher" android:value="wearos-watchface-skill"/>
+  </application>
+</manifest>

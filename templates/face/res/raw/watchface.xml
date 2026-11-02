@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  @@LABEL@@: made with the wearos-watchface skill. Watch Face Format v1.
+  Screen: @@SHAPE@@. Design grid 450 wide; the "layout" group is a 450 x 450 square
+  centred on the screen, so round, square and rectangular screens share one layout.
+
+  Battery and memory rules followed here:
+  - always-on mode: black, time only, dimmed (artwork and data hidden)
+  - no seconds and no animation: the face redraws once a minute
+  - one background image at screen size; device font for text
+  - built-in data only: time, date, steps, battery
+-->
+<WatchFace width="450" height="@@H@@" clipShape="@@CLIP@@">
+  <Metadata key="CLOCK_TYPE" value="DIGITAL"/>
+  <Metadata key="PREVIEW_TIME" value="10:08:00"/>
+
+  <Scene backgroundColor="#FF000000">
+
+    <!-- Artwork (hidden in always-on mode) -->
+    <Group name="art" x="0" y="0" width="450" height="@@H@@">
+      <Variant mode="AMBIENT" target="alpha" value="0"/>
+      <PartImage x="0" y="0" width="450" height="@@H@@"><Image resource="bg"/></PartImage>
+    </Group>
+
+    <Group name="layout" x="0" y="@@DY@@" width="450" height="450">
+
+    <!--@@DATE@@ -->
+    <Group name="date" x="0" y="0" width="450" height="450">
+      <Variant mode="AMBIENT" target="alpha" value="0"/>
+      <PartText x="75" y="104" width="300" height="30">
+        <Text align="CENTER">
+          <Font family="SYNC_TO_DEVICE" size="22" weight="SEMI_BOLD" color="@@TEXT@@">
+            <Template>%s  %s %s<Parameter expression="[DAY_OF_WEEK_S]"/><Parameter expression="[MONTH_S]"/><Parameter expression="[DAY]"/></Template>
+          </Font>
+        </Text>
+      </PartText>
+    </Group>
+    <!-- @@DATE@@-->
+
+    <!-- Time (dimmed in always-on mode) -->
+    <DigitalClock x="0" y="138" width="450" height="120">
+      <Variant mode="AMBIENT" target="alpha" value="170"/>
+      <TimeText format="@@HOURS@@:mm" align="CENTER" x="0" y="0" width="450" height="120">
+        <Font family="SYNC_TO_DEVICE" size="104" weight="LIGHT" color="@@TIME@@"/>
+      </TimeText>
+    </DigitalClock>
+
+    <!--@@STEPS@@ -->
+    <Group name="steps" x="0" y="0" width="450" height="450">
+      <Variant mode="AMBIENT" target="alpha" value="0"/>
+      <PartText x="60" y="276" width="160" height="28">
+        <Text align="CENTER">
+          <Font family="SYNC_TO_DEVICE" size="22" weight="MEDIUM" color="@@ACCENT@@">
+            <Template>%s<Parameter expression='numberFormat("#,##0", [STEP_COUNT])'/></Template>
+          </Font>
+        </Text>
+      </PartText>
+      <PartText x="60" y="304" width="160" height="20">
+        <Text align="CENTER">
+          <Font family="SYNC_TO_DEVICE" size="13" weight="SEMI_BOLD" color="@@TEXT@@">STEPS</Font>
+        </Text>
+      </PartText>
+    </Group>
+    <!-- @@STEPS@@-->
+
+    <!--@@BATTERY@@ -->
+    <Group name="battery" x="0" y="0" width="450" height="450">
+      <Variant mode="AMBIENT" target="alpha" value="0"/>
+      <PartDraw x="0" y="0" width="450" height="450">
+        <!-- 0 degrees = 12 o'clock, clockwise; ring fills with the battery level -->
+        <Arc centerX="300" centerY="296" width="64" height="64" startAngle="0" endAngle="360">
+          <Stroke color="#FF262626" thickness="5"/>
+        </Arc>
+        <Arc centerX="300" centerY="296" width="64" height="64" startAngle="0" endAngle="0">
+          <Transform target="endAngle" value="clamp([BATTERY_PERCENT], 0, 100) * 3.6"/>
+          <Stroke color="@@ACCENT@@" thickness="5" cap="ROUND"/>
+        </Arc>
+      </PartDraw>
+      <PartText x="250" y="282" width="52" height="28">
+        <Text align="END">
+          <Font family="SYNC_TO_DEVICE" size="20" weight="MEDIUM" color="@@TEXT@@">
+            <Template>%s<Parameter expression="[BATTERY_PERCENT]"/></Template>
+          </Font>
+        </Text>
+      </PartText>
+      <PartText x="302" y="285" width="24" height="24">
+        <Text align="START">
+          <Font family="SYNC_TO_DEVICE" size="14" weight="MEDIUM" color="@@TEXT@@">%</Font>
+        </Text>
+      </PartText>
+    </Group>
+    <!-- @@BATTERY@@-->
+
+    </Group>
+  </Scene>
+</WatchFace>

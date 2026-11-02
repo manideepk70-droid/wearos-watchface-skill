@@ -1,0 +1,32 @@
+# Wear OS watch face skill
+
+# build output
+build/
+*.apk
+*.aab
+*.idsig
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# your own settings and secrets
+face.config.json
+.env
+*.keystore
+*.jks
+
+# backups, screenshots and logs from your devices (personal data)
+*backup*/
+*.tar.gz
+*.log
+logs/
+
+# editors and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
